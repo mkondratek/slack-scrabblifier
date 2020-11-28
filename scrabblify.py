@@ -20,13 +20,13 @@ german=dict()
 german.update(eszett)
 german.update(umlauts)
 
-scrabble_name_prefix=":scrabble_"
+scrabble_name_prefix=":scrabble-"
 scrabble_name_suffix=":"
-umlaut_infix="_umlaut"
-with_acute_name_infix="_with_acute"
-with_ogonek_name_infix="_with_ogonek"
-with_overdot_name_infix="_with_overdot"
-with_stroke_name_infix="_with_stroke"
+umlaut_infix="-umlaut"
+with_acute_name_infix="-with-acute"
+with_ogonek_name_infix="-with-ogonek"
+with_overdot_name_infix="-with-overdot"
+with_stroke_name_infix="-with-stroke"
 
 def scrabblify(c):
     c_str=str(c)
