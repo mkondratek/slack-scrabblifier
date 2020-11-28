@@ -4,6 +4,11 @@ This useless tool converts text to human the unreadable mess.
 
 ## Usage
 
+#### Requirements
+- Python 3.6+
+
+#### Example
+
 ```
 python3 ./scrabblify.py "zażółć gęślą jaźń"
 ```
