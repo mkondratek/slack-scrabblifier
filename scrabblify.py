@@ -63,7 +63,9 @@ def scrabblify(c, allow_interpunction=True):
     
     return scrabble_name_prefix + id + scrabble_name_suffix
 
-
-scrabblified = ''.join([scrabblify(c) for c in sys.argv[1].lower()])
-print(scrabblified)
+if len(sys.argv) < 2:
+    raise ValueError("missing argument")
+else: 
+    scrabblified = ''.join([scrabblify(c) for c in sys.argv[1].lower()])
+    print(scrabblified)
 
