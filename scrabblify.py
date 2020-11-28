@@ -1,7 +1,15 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import string
 import sys
+
+
+# version check
+vi = sys.version_info
+if vi.major < 3 or (vi.major == 3 and vi.minor < 6):
+    raise EnvironmentError("python version %s to low; minimal required: 3.6.0" % sys.version)
+
 
 interpunction={',': "comma", '.': "full-stop", '!': "exclamation", '?': "question" }
 
@@ -30,6 +38,14 @@ with_ogonek_name_infix="-with-ogonek"
 with_overdot_name_infix="-with-overdot"
 with_stroke_name_infix="-with-stroke"
 
+
+if len(sys.argv) < 2:
+    raise ValueError("missing argument")
+else: 
+    scrabblified = ''.join([scrabblify(c) for c in sys.argv[1].lower()])
+    print(scrabblified)
+
+
 def scrabblify(c, allow_interpunction=True):
     c_str=str(c)
     if c in string.ascii_lowercase:
@@ -45,7 +61,7 @@ def scrabblify(c, allow_interpunction=True):
         elif c in polish_with_stroke_to_base.keys():
             id=c_str + with_stroke_name_infix
         else:
-            raise ValueError(f"unknown polish character: {c}")
+            raise ValueError("unknown polish character: %c" % c)
     elif c in german.keys():
         c_str=german[c]
         if c in umlauts.keys():
@@ -53,19 +69,14 @@ def scrabblify(c, allow_interpunction=True):
         elif c in eszett.keys():
             id=c_str
         else:
-            raise ValueError(f"unknown german character: {c}")
+            raise ValueError("unknown german character: %c" % c)
     elif c == ' ':
         id="blank" 
     elif c in interpunction.keys() and allow_interpunction:
         return ":" + interpunction[c] + ":"
     else:
-        raise ValueError(f"unknown character: {c}")
+        raise ValueError("unknown character: %c" % c)
     
     return scrabble_name_prefix + id + scrabble_name_suffix
 
-if len(sys.argv) < 2:
-    raise ValueError("missing argument")
-else: 
-    scrabblified = ''.join([scrabblify(c) for c in sys.argv[1].lower()])
-    print(scrabblified)
 
