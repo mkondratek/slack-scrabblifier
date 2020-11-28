@@ -3,6 +3,8 @@
 import string
 import sys
 
+interpunction={',': "comma", '.': "full-stop", '!': "exclamation", '?': "question" }
+
 polish_with_acute_to_base={'ć': "c", 'ń': "n", 'ó': "o", 'ś': "s", 'ź': "z"}
 polish_with_ogonek_to_base={'ą': "a", 'ę': "e", 'ć': "c"}
 polish_with_overdot_to_base={'ż': "z"}
@@ -28,7 +30,7 @@ with_ogonek_name_infix="-with-ogonek"
 with_overdot_name_infix="-with-overdot"
 with_stroke_name_infix="-with-stroke"
 
-def scrabblify(c):
+def scrabblify(c, allow_interpunction=True):
     c_str=str(c)
     if c in string.ascii_lowercase:
         id=c_str
@@ -54,8 +56,10 @@ def scrabblify(c):
             raise ValueError(f"unknown german character: {c}")
     elif c == ' ':
         id="blank" 
+    elif c in interpunction.keys() and allow_interpunction:
+        return ":" + interpunction[c] + ":"
     else:
-        raise ValueError(f"unknown polish character: {c}")
+        raise ValueError(f"unknown character: {c}")
     
     return scrabble_name_prefix + id + scrabble_name_suffix
 
